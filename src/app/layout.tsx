@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import "@rainbow-me/rainbowkit/styles.css";
 import { Providers } from "./providers";
 
 export const metadata: Metadata = {
@@ -14,9 +15,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Providers>
-        <body>{children}</body>
-      </Providers>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
