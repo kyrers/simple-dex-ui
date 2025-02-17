@@ -11,5 +11,6 @@ export const globalStyles = css({
     minHeight: "100vh",
     width: "100%",
     backgroundColor: "#121212",
+    color: "white",
   },
 });
