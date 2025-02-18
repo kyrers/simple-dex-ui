@@ -1,12 +1,14 @@
 "use client";
 
 import useTokenA from "@/hooks/useTokenA";
+import useTokenB from "@/hooks/useTokenB";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useAccount } from "wagmi";
 
 export default function Home() {
   const { isConnected } = useAccount();
-  const { userBalance } = useTokenA();
+  const { balance: tokenABalance } = useTokenA();
+  const { balance: tokenBBalance } = useTokenB();
 
   return (
     <div>
@@ -14,7 +16,10 @@ export default function Home() {
       {!isConnected ? (
         <h2>Connect wallet</h2>
       ) : (
-        <p>Token A Balance: {userBalance}</p>
+        <>
+          <p>Token A Balance: {tokenABalance}</p>
+          <p>Token B Balance: {tokenBBalance}</p>
+        </>
       )}
     </div>
   );
