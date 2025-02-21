@@ -2,7 +2,7 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useAccount } from "wagmi";
 import { ConnectButtonWrapper, PageWrapper } from "./styles";
-import TokenInfo from "@/components/tokenInfo/tokenInfo";
+import Dashboard from "@/components/dashboard/dashboard";
 
 export default function Home() {
   const { isConnected } = useAccount();
@@ -13,7 +13,7 @@ export default function Home() {
         <ConnectButton />
       </ConnectButtonWrapper>
 
-      {!isConnected ? <h2>Connect wallet</h2> : <TokenInfo />}
+      {!isConnected ? <h2>Connect wallet</h2> : <Dashboard />}
     </PageWrapper>
   );
 }
