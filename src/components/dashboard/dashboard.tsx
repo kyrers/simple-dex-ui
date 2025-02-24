@@ -13,13 +13,17 @@ export default function Dashboard() {
         key="Token-A-Card"
         title="Token A"
         balance={tokenABalance}
-        mint={() => {}}
+        mint={(amount: number) => {
+          console.log(`## MINT ${amount} A TOKENS`);
+        }}
       />
       <TokenCard
         key="Token-B-Card"
         title="Token B"
         balance={tokenBBalance}
-        mint={() => {}}
+        mint={(amount: number) => {
+          console.log(`## MINT ${amount} B TOKENS`);
+        }}
       />
     </DashboardWrapper>
   );

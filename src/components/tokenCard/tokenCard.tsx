@@ -1,4 +1,5 @@
-import { CardWrapper } from "./styles";
+import { useState } from "react";
+import { CardWrapper, StyledForm } from "./styles";
 
 interface Props {
   title: string;
@@ -7,11 +8,31 @@ interface Props {
 }
 
 export default function TokenCard({ title, balance, mint }: Props) {
+  const [amount, setAmount] = useState<number>(1);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    mint(amount);
+  };
+
   return (
     <CardWrapper>
       <h1>{title}</h1>
       <p>Balance: {balance}</p>
-      <button onClick={() => mint(1000)}>Mint</button>
+      <StyledForm onSubmit={handleSubmit}>
+        <input
+          id="mintAmount"
+          type="number"
+          placeholder="Amount of tokens to mint"
+          required
+          value={amount}
+          min={1}
+          onChange={(e) => setAmount(Number(e.target.value))}
+        />
+        <button disabled={!amount} type="submit">
+          Mint
+        </button>
+      </StyledForm>
     </CardWrapper>
   );
 }

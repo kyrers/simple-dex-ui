@@ -9,3 +9,8 @@ export const CardWrapper = styled.div`
   padding: 20px;
   text-align: center;
 `;
+
+export const StyledForm = styled.form`
+  display: flex;
+  gap: 10px;
+`;
