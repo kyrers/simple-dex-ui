@@ -4,7 +4,7 @@ import TokenCard from "../tokenCard/tokenCard";
 import { DashboardWrapper } from "./styles";
 
 export default function Dashboard() {
-  const { balance: tokenABalance } = useTokenA();
+  const { balance: tokenABalance, mint: mintTokenA } = useTokenA();
   const { balance: tokenBBalance } = useTokenB();
 
   return (
@@ -13,9 +13,7 @@ export default function Dashboard() {
         key="Token-A-Card"
         title="Token A"
         balance={tokenABalance}
-        mint={(amount: number) => {
-          console.log(`## MINT ${amount} A TOKENS`);
-        }}
+        mint={mintTokenA}
       />
       <TokenCard
         key="Token-B-Card"
