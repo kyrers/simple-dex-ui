@@ -3,7 +3,7 @@ import { CardWrapper, StyledForm } from "./styles";
 
 interface Props {
   title: string;
-  balance: number;
+  balance: string;
   mint: (amount: number) => void;
 }
 

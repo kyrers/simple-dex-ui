@@ -6,7 +6,7 @@ import {
   writeContract,
 } from "wagmi/actions";
 import { wagmiConfig } from "@/wagmiConfig";
-import { parseEther } from "viem";
+import { formatEther, parseEther } from "viem";
 
 const { abi: TOKEN_A_ABI } = TokenAContract;
 interface MintTransactionParams {
@@ -57,7 +57,7 @@ const useTokenA = () => {
   };
 
   return {
-    balance: Number(data ?? 0),
+    balance: formatEther((data as bigint) ?? 0),
     refetch,
     isFetching,
     mint,

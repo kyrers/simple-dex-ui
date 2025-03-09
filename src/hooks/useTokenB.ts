@@ -1,5 +1,6 @@
 import { useAccount, useReadContract } from "wagmi";
 import TokenBContract from "@/contracts/TokenB.json";
+import { formatEther } from "viem";
 
 const { abi: TOKEN_B_ABI } = TokenBContract;
 
@@ -16,7 +17,7 @@ const useTokenB = () => {
   });
 
   return {
-    balance: Number(data ?? 0),
+    balance: formatEther((data as bigint) ?? 0),
     refetch,
     isFetching,
   };
