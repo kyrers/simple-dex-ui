@@ -5,7 +5,7 @@ import { DashboardWrapper } from "./styles";
 
 export default function Dashboard() {
   const { balance: tokenABalance, mint: mintTokenA } = useTokenA();
-  const { balance: tokenBBalance } = useTokenB();
+  const { balance: tokenBBalance, mint: mintTokenB } = useTokenB();
 
   return (
     <DashboardWrapper>
@@ -19,9 +19,7 @@ export default function Dashboard() {
         key="Token-B-Card"
         title="Token B"
         balance={tokenBBalance}
-        mint={(amount: number) => {
-          console.log(`## MINT ${amount} B TOKENS`);
-        }}
+        mint={mintTokenB}
       />
     </DashboardWrapper>
   );
