@@ -1,5 +1,4 @@
 import { useAccount, useReadContract } from "wagmi";
-import TokenAContract from "@/contracts/TokenA.json";
 import {
   simulateContract,
   waitForTransactionReceipt,
@@ -7,14 +6,10 @@ import {
 } from "wagmi/actions";
 import { wagmiConfig } from "@/wagmiConfig";
 import { formatEther, parseEther } from "viem";
+import TokenAContract from "@/contracts/TokenA.json";
+import { MintTransactionParams } from "@/model/mintTransactionParams";
 
 const { abi: TOKEN_A_ABI } = TokenAContract;
-interface MintTransactionParams {
-  abi: typeof TOKEN_A_ABI;
-  address: `0x${string}`;
-  functionName: string;
-  args: [bigint];
-}
 
 const useTokenA = () => {
   const { address } = useAccount();
