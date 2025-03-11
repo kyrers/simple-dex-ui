@@ -8,7 +8,7 @@ interface Props {
 }
 
 export default function TokenCard({ title, balance, mint }: Props) {
-  const [amount, setAmount] = useState<number>(1);
+  const [amount, setAmount] = useState<number>(0);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,7 +18,7 @@ export default function TokenCard({ title, balance, mint }: Props) {
   return (
     <CardWrapper>
       <h1>{title}</h1>
-      <p>Balance: {balance}</p>
+      <h3>Balance: {balance}</h3>
       <StyledForm onSubmit={handleSubmit}>
         <input
           id="mintAmount"

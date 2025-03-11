@@ -13,4 +13,18 @@ export const CardWrapper = styled.div`
 export const StyledForm = styled.form`
   display: flex;
   gap: 10px;
+
+  input {
+    border: 1px solid transparent;
+    border-radius: 5px;
+    padding: 2px;
+  }
+
+  button {
+    cursor: pointer;
+    width: 50px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    background: coral;
+  }
 `;

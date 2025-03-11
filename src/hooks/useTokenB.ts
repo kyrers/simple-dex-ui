@@ -53,8 +53,8 @@ const useTokenB = () => {
 
   return {
     balance: formatEther((data as bigint) ?? 0),
-    refetch,
     isFetching,
+    refetch,
     mint,
   };
 };
