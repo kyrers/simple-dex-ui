@@ -8,10 +8,12 @@ import { wagmiConfig } from "@/wagmiConfig";
 import { formatEther, parseEther } from "viem";
 import { MintTransactionParams } from "@/model/mintTransactionParams";
 import TokenBContract from "@/contracts/TokenB.json";
+import { useState } from "react";
 
 const { abi: TOKEN_B_ABI } = TokenBContract;
 
 const useTokenB = () => {
+  const [isMinting, setIsMinting] = useState<boolean>(false);
   const { address } = useAccount();
   const { data, refetch, isFetching } = useReadContract({
     abi: TOKEN_B_ABI,
@@ -24,6 +26,7 @@ const useTokenB = () => {
   });
 
   const mint = async (amount: number) => {
+    setIsMinting(true);
     const txParams: MintTransactionParams = {
       abi: TOKEN_B_ABI,
       address: process.env
@@ -34,9 +37,10 @@ const useTokenB = () => {
 
     try {
       await simulateContract(wagmiConfig, txParams);
-      handleMint(txParams);
+      await handleMint(txParams);
     } catch {
       alert("Mint will fail!");
+      setIsMinting(false);
       return;
     }
   };
@@ -48,12 +52,15 @@ const useTokenB = () => {
       await refetch();
     } catch (error) {
       console.error("## Error minting:", error);
+    } finally {
+      setIsMinting(false);
     }
   };
 
   return {
     balance: formatEther((data as bigint) ?? 0),
     isFetching,
+    isMinting,
     refetch,
     mint,
   };
