@@ -22,7 +22,6 @@ export default function TokenCard({ title, balance, isMinting, mint }: Props) {
       <h3>Balance: {balance}</h3>
       <StyledForm onSubmit={handleSubmit}>
         <input
-          id="mintAmount"
           type="number"
           placeholder="Amount of tokens to mint"
           required

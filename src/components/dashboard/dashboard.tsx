@@ -18,14 +18,12 @@ export default function Dashboard() {
   return (
     <DashboardWrapper>
       <TokenCard
-        key="Token-A-Card"
         title="Token A"
         balance={tokenABalance}
         isMinting={isMintingTokenA}
         mint={mintTokenA}
       />
       <TokenCard
-        key="Token-B-Card"
         title="Token B"
         balance={tokenBBalance}
         isMinting={isMintingTokenB}

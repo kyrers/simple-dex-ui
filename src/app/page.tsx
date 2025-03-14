@@ -13,7 +13,11 @@ export default function Home() {
         <ConnectButton />
       </ConnectButtonWrapper>
 
-      {!isConnected ? <h2>Connect wallet</h2> : <Dashboard />}
+      {!isConnected ? (
+        <h2>Please connect a wallet to continue</h2>
+      ) : (
+        <Dashboard />
+      )}
     </PageWrapper>
   );
 }
