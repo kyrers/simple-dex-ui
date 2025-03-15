@@ -6,18 +6,28 @@ import {
 } from "wagmi/actions";
 import { wagmiConfig } from "@/wagmiConfig";
 import { formatEther, parseEther } from "viem";
-import { MintTransactionParams } from "@/model/mintTransactionParams";
-import TokenBContract from "@/contracts/TokenB.json";
+import TokenAContract from "@/contracts/TokenA.json";
 import { useState } from "react";
 
-const { abi: TOKEN_B_ABI } = TokenBContract;
+interface UseTokenProps {
+  contractAddress: `0x${string}`;
+  //Both TokenA and TokenB contracts have the same ABI, so we can define the type like below
+  contractABI: typeof TokenAContract.abi;
+}
 
-const useTokenB = () => {
+export interface MintTransactionParams {
+  abi: typeof TokenAContract.abi;
+  address: `0x${string}`;
+  functionName: string;
+  args: [bigint];
+}
+
+const useToken = ({ contractAddress, contractABI }: UseTokenProps) => {
   const [isMinting, setIsMinting] = useState<boolean>(false);
   const { address } = useAccount();
   const { data, refetch, isFetching } = useReadContract({
-    abi: TOKEN_B_ABI,
-    address: process.env.NEXT_PUBLIC_TOKEN_B_CONTRACT_ADDRESS as `0x${string}`,
+    abi: contractABI,
+    address: contractAddress,
     functionName: "balanceOf",
     args: [address],
     query: {
@@ -28,9 +38,8 @@ const useTokenB = () => {
   const mint = async (amount: number) => {
     setIsMinting(true);
     const txParams: MintTransactionParams = {
-      abi: TOKEN_B_ABI,
-      address: process.env
-        .NEXT_PUBLIC_TOKEN_B_CONTRACT_ADDRESS as `0x${string}`,
+      abi: contractABI,
+      address: contractAddress,
       functionName: "mint",
       args: [parseEther(amount.toString())],
     };
@@ -58,12 +67,12 @@ const useTokenB = () => {
   };
 
   return {
+    isMinting,
     balance: formatEther((data as bigint) ?? 0),
     isFetching,
-    isMinting,
     refetch,
     mint,
   };
 };
 
-export default useTokenB;
+export default useToken;
