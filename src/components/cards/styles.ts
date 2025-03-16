@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const CardWrapper = styled.div`
+export const BaseCardWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -27,7 +27,7 @@ export const CardWrapper = styled.div`
   }
 `;
 
-export const StyledForm = styled.form`
+export const BaseStyledForm = styled.form`
   display: flex;
   gap: 10px;
   width: 100%;

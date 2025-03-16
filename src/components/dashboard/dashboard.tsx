@@ -1,8 +1,9 @@
-import TokenCard from "../tokenCard/tokenCard";
 import useToken from "@/hooks/useToken";
 import TokenAContract from "@/contracts/TokenA.json";
 import TokenBContract from "@/contracts/TokenB.json";
 import { DashboardWrapper } from "./styles";
+import TokenCard from "../cards/token/tokenCard";
+import SwapCard from "../cards/swap/swapCard";
 
 export default function Dashboard() {
   const {
@@ -39,6 +40,7 @@ export default function Dashboard() {
         isMinting={isMintingTokenB}
         mint={mintTokenB}
       />
+      <SwapCard tokenABalance={tokenABalance} tokenBBalance={tokenBBalance} />
     </DashboardWrapper>
   );
 }
