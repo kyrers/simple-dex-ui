@@ -1,6 +1,6 @@
 "use client";
 
-import { globalStyles } from "@/app/globalStyles";
+import { globalStyles } from "@/styles/global";
 import { wagmiConfig } from "@/wagmiConfig";
 import { Global } from "@emotion/react";
 import { RainbowKitProvider } from "@rainbow-me/rainbowkit";

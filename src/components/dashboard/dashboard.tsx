@@ -1,9 +1,9 @@
 import useToken from "@/hooks/useToken";
 import TokenAContract from "@/contracts/TokenA.json";
 import TokenBContract from "@/contracts/TokenB.json";
-import { DashboardWrapper } from "./styles";
-import TokenCard from "../cards/token/tokenCard";
-import SwapCard from "../cards/swap/swapCard";
+import { DashboardWrapper } from "./dashboard.styles";
+import TokenCard from "../cards/tokenCard/tokenCard";
+import SwapCard from "../cards/swapCard/swapCard";
 
 export default function Dashboard() {
   const {

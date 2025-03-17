@@ -1,6 +1,10 @@
 import { useState } from "react";
-import { InputContainer, InputWrapper, SwapStyledForm } from "./styles";
-import { BaseCardWrapper } from "../styles";
+import {
+  InputContainer,
+  InputWrapper,
+  SwapStyledForm,
+} from "./swapCard.styles";
+import { BaseCardWrapper } from "../cards.styles";
 
 interface Props {
   tokenABalance: string;

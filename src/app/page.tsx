@@ -1,7 +1,7 @@
 "use client";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useAccount } from "wagmi";
-import { ConnectButtonWrapper, PageWrapper } from "./styles";
+import { ConnectButtonWrapper, PageWrapper } from "./page.styles";
 import Dashboard from "@/components/dashboard/dashboard";
 
 export default function Home() {

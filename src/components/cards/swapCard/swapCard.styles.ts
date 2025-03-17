@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { BaseStyledForm } from "../styles";
+import { BaseStyledForm } from "../cards.styles";
 
 export const SwapStyledForm = styled(BaseStyledForm)`
   flex-direction: column;

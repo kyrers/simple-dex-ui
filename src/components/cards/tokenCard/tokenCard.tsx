@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BaseCardWrapper, BaseStyledForm } from "../styles";
+import { BaseCardWrapper, BaseStyledForm } from "../cards.styles";
 
 interface Props {
   title: string;
