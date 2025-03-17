@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { SwapCardWrapper, SwapStyledForm } from "./styles";
+import { InputContainer, InputWrapper, SwapStyledForm } from "./styles";
+import { BaseCardWrapper } from "../styles";
 
 interface Props {
   tokenABalance: string;
@@ -18,32 +19,29 @@ export default function SwapCard({ tokenABalance, tokenBBalance }: Props) {
   };
 
   return (
-    <SwapCardWrapper>
+    <BaseCardWrapper>
       <h1>Swap Tokens</h1>
-      <div>
-        <h3>Token A Balance: {tokenABalance}</h3>
-        <h3>Token B Balance: {tokenBBalance}</h3>
-      </div>
       <SwapStyledForm onSubmit={handleSubmit}>
-        <input
-          type="number"
-          placeholder="Amount to swap"
-          required
-          value={amount}
-          min={1}
-          onChange={(e) => setAmount(Number(e.target.value))}
-        />
-        <select
-          value={swapFromTokenA ? "a" : "b"}
-          onChange={(e) => setSwapFromTokenA(e.target.value === "a")}
-        >
-          <option value="a">Swap from Token A</option>
-          <option value="b">Swap from Token B</option>
-        </select>
+        <InputContainer>
+          <InputWrapper>
+            <input
+              type="number"
+              placeholder="Amount to swap"
+              required
+              value={amount}
+              min={1}
+              onChange={(e) => setAmount(Number(e.target.value))}
+            />
+            <input type="number" placeholder="Amount received" disabled />
+          </InputWrapper>
+          <button onClick={() => setSwapFromTokenA(!swapFromTokenA)}>
+            {"\u21C5"}
+          </button>
+        </InputContainer>
         <button disabled={!amount} type="submit">
           Swap
         </button>
       </SwapStyledForm>
-    </SwapCardWrapper>
+    </BaseCardWrapper>
   );
 }

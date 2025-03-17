@@ -43,7 +43,6 @@ export const BaseStyledForm = styled.form`
 
   button {
     cursor: pointer;
-    min-width: 80px;
     padding: 8px 16px;
     border: 1px solid transparent;
     border-radius: 5px;
