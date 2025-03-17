@@ -1,3 +1,5 @@
+import { mediaQueries } from "@/styles/media";
+import { theme } from "@/styles/theme";
 import styled from "@emotion/styled";
 
 export const PageWrapper = styled.div`
@@ -5,26 +7,26 @@ export const PageWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
-  padding: 40px;
-  max-width: 1200px;
+  padding: ${theme.spacing.xxl};
+  max-width: ${theme.breakpoints.desktop};
   margin: 0 auto;
   width: 100%;
 
-  @media (max-width: 768px) {
-    padding: 20px;
+  ${mediaQueries.tablet} {
+    padding: ${theme.spacing.lg};
   }
 
   h2 {
     text-align: center;
-    margin-top: 40px;
+    margin-top: ${theme.spacing.xxl};
   }
 `;
 
 export const ConnectButtonWrapper = styled.div`
   align-self: end;
-  margin-bottom: 20px;
+  margin-bottom: ${theme.spacing.lg};
 
-  @media (max-width: 768px) {
+  ${mediaQueries.tablet} {
     align-self: center;
   }
 `;

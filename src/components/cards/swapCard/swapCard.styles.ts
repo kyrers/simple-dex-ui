@@ -1,9 +1,10 @@
+import { theme } from "@/styles/theme";
 import styled from "@emotion/styled";
 import { BaseStyledForm } from "../cards.styles";
 
 export const SwapStyledForm = styled(BaseStyledForm)`
   flex-direction: column;
-  gap: 15px;
+  gap: ${theme.spacing.md};
 
   button {
     width: 100%;
@@ -12,7 +13,7 @@ export const SwapStyledForm = styled(BaseStyledForm)`
 
 export const InputContainer = styled.div`
   display: flex;
-  gap: 10px;
+  gap: ${theme.spacing.sm};
   align-items: center;
 
   button {
@@ -25,5 +26,5 @@ export const InputWrapper = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
-  gap: 10px;
+  gap: ${theme.spacing.sm};
 `;

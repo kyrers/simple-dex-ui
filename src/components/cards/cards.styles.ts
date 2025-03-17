@@ -1,12 +1,14 @@
+import { mediaQueries } from "@/styles/media";
+import { theme } from "@/styles/theme";
 import styled from "@emotion/styled";
 
 export const BaseCardWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  border: 1px solid white;
-  border-radius: 5px;
-  padding: 20px;
+  gap: ${theme.spacing.lg};
+  border: 1px solid ${theme.colors.border};
+  border-radius: ${theme.borderRadius};
+  padding: ${theme.spacing.lg};
   text-align: center;
   width: 100%;
   max-width: 400px;
@@ -21,21 +23,21 @@ export const BaseCardWrapper = styled.div`
     font-size: 1.1rem;
   }
 
-  @media (max-width: 768px) {
-    padding: 15px;
-    gap: 15px;
+  ${mediaQueries.tablet} {
+    padding: ${theme.spacing.md};
+    gap: ${theme.spacing.md};
   }
 `;
 
 export const BaseStyledForm = styled.form`
   display: flex;
-  gap: 10px;
+  gap: ${theme.spacing.sm};
   width: 100%;
 
   input {
     border: 1px solid transparent;
-    border-radius: 5px;
-    padding: 8px;
+    border-radius: ${theme.borderRadius};
+    padding: ${theme.spacing.xs};
     flex: 1;
     min-width: 0;
     font-size: 1rem;
@@ -43,10 +45,10 @@ export const BaseStyledForm = styled.form`
 
   button {
     cursor: pointer;
-    padding: 8px 16px;
+    padding: ${theme.spacing.xs} ${theme.spacing.md};
     border: 1px solid transparent;
-    border-radius: 5px;
-    background: coral;
+    border-radius: ${theme.borderRadius};
+    background: ${theme.colors.primary};
     font-size: 1rem;
     white-space: nowrap;
 
@@ -56,7 +58,7 @@ export const BaseStyledForm = styled.form`
     }
   }
 
-  @media (max-width: 480px) {
+  ${mediaQueries.mobile} {
     flex-direction: column;
 
     button {
