@@ -6,23 +6,26 @@ import {
 } from "./addLiquidityCard.styles";
 
 interface Props {
-  tokenABalance: string;
-  tokenBBalance: string;
+  tokenABalance: number;
+  tokenBBalance: number;
 }
 
 export default function AddLiquidityCard({
   tokenABalance,
   tokenBBalance,
 }: Props) {
-  const [tokenAAmount, setTokenAAmount] = useState<number>(0);
-  const [tokenBAmount, setTokenBAmount] = useState<number>(0);
+  const [tokenAAmount, setTokenAAmount] = useState<string>("");
+  const [tokenBAmount, setTokenBAmount] = useState<string>("");
 
   const isAddLiquidityDisabled = useMemo(() => {
+    const formattedTokenAAmount = Number(tokenAAmount);
+    const formattedTokenBAmount = Number(tokenBAmount);
+
     return (
-      !tokenAAmount ||
-      !tokenBAmount ||
-      tokenAAmount > Number(tokenABalance) ||
-      tokenBAmount > Number(tokenBBalance)
+      !formattedTokenAAmount ||
+      !formattedTokenBAmount ||
+      formattedTokenAAmount > tokenABalance ||
+      formattedTokenBAmount > tokenBBalance
     );
   }, [tokenAAmount, tokenBAmount, tokenABalance, tokenBBalance]);
 
@@ -40,19 +43,19 @@ export default function AddLiquidityCard({
         <InputContainer>
           <input
             type="number"
-            placeholder="Token A Amount"
+            placeholder="Token A amount"
             required
             value={tokenAAmount}
             min={1}
-            onChange={(e) => setTokenAAmount(Number(e.target.value))}
+            onChange={(e) => setTokenAAmount(e.target.value)}
           />
           <input
             type="number"
-            placeholder="Token B Amount"
+            placeholder="Token B amount"
             required
             value={tokenBAmount}
             min={1}
-            onChange={(e) => setTokenBAmount(Number(e.target.value))}
+            onChange={(e) => setTokenBAmount(e.target.value)}
           />
         </InputContainer>
         <button type="submit" disabled={isAddLiquidityDisabled}>

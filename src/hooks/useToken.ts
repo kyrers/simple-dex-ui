@@ -68,7 +68,7 @@ const useToken = ({ contractAddress, contractABI }: UseTokenProps) => {
 
   return {
     isMinting,
-    balance: formatEther((data as bigint) ?? 0),
+    balance: Number(formatEther((data as bigint) ?? 0)),
     isFetching,
     refetch,
     mint,
