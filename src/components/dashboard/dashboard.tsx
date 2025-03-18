@@ -4,6 +4,7 @@ import TokenBContract from "@/contracts/TokenB.json";
 import { DashboardWrapper } from "./dashboard.styles";
 import TokenCard from "../cards/tokenCard/tokenCard";
 import SwapCard from "../cards/swapCard/swapCard";
+import AddLiquidityCard from "../cards/addLiquidityCard/addLiquidityCard";
 
 export default function Dashboard() {
   const {
@@ -39,6 +40,10 @@ export default function Dashboard() {
         balance={tokenBBalance}
         isMinting={isMintingTokenB}
         mint={mintTokenB}
+      />
+      <AddLiquidityCard
+        tokenABalance={tokenABalance}
+        tokenBBalance={tokenBBalance}
       />
       <SwapCard tokenABalance={tokenABalance} tokenBBalance={tokenBBalance} />
     </DashboardWrapper>
