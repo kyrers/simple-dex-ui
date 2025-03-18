@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
   InputContainer,
   InputWrapper,
@@ -14,6 +14,13 @@ interface Props {
 export default function SwapCard({ tokenABalance, tokenBBalance }: Props) {
   const [amount, setAmount] = useState<number>(0);
   const [swapFromTokenA, setSwapFromTokenA] = useState<boolean>(true);
+
+  const isSwapDisabled = useMemo(() => {
+    return (
+      !amount ||
+      amount > (swapFromTokenA ? Number(tokenABalance) : Number(tokenBBalance))
+    );
+  }, [amount, swapFromTokenA, tokenABalance, tokenBBalance]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,7 +49,7 @@ export default function SwapCard({ tokenABalance, tokenBBalance }: Props) {
             {"\u21C5"}
           </button>
         </InputContainer>
-        <button disabled={!amount} type="submit">
+        <button disabled={isSwapDisabled} type="submit">
           Swap
         </button>
       </SwapStyledForm>
