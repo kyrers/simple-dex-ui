@@ -66,3 +66,7 @@ export const BaseStyledForm = styled.form`
     }
   }
 `;
+
+export const LiquidityCardStyledForm = styled(BaseStyledForm)`
+  flex-direction: column;
+`;
