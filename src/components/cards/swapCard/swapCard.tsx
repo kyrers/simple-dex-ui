@@ -3,22 +3,26 @@ import {
   InputContainer,
   InputWrapper,
   SwapStyledForm,
+  InputRow,
+  SwapButton,
 } from "./swapCard.styles";
 import { BaseCardWrapper } from "../cards.styles";
 
 interface Props {
-  tokenABalance: string;
-  tokenBBalance: string;
+  tokenABalance: number;
+  tokenBBalance: number;
 }
 
 export default function SwapCard({ tokenABalance, tokenBBalance }: Props) {
-  const [amount, setAmount] = useState<number>(0);
+  const [amount, setAmount] = useState<string>("");
   const [swapFromTokenA, setSwapFromTokenA] = useState<boolean>(true);
 
   const isSwapDisabled = useMemo(() => {
+    const formattedAmount = Number(amount);
+
     return (
-      !amount ||
-      amount > (swapFromTokenA ? Number(tokenABalance) : Number(tokenBBalance))
+      !formattedAmount ||
+      formattedAmount > (swapFromTokenA ? tokenABalance : tokenBBalance)
     );
   }, [amount, swapFromTokenA, tokenABalance, tokenBBalance]);
 
@@ -35,19 +39,28 @@ export default function SwapCard({ tokenABalance, tokenBBalance }: Props) {
       <SwapStyledForm onSubmit={handleSubmit}>
         <InputContainer>
           <InputWrapper>
-            <input
-              type="number"
-              placeholder="Amount to swap"
-              required
-              value={amount}
-              min={1}
-              onChange={(e) => setAmount(Number(e.target.value))}
-            />
-            <input type="number" placeholder="Amount received" disabled />
+            <InputRow>
+              <h3>{swapFromTokenA ? "Token A" : "Token B"}</h3>
+              <input
+                type="number"
+                placeholder="Amount to swap"
+                required
+                value={amount}
+                min={1}
+                onChange={(e) => setAmount(e.target.value)}
+              />
+            </InputRow>
+            <SwapButton
+              type="button"
+              onClick={() => setSwapFromTokenA(!swapFromTokenA)}
+            >
+              {"\u21C5"}
+            </SwapButton>
+            <InputRow>
+              <h3>{swapFromTokenA ? "Token B" : "Token A"}</h3>
+              <input type="number" placeholder="Amount received" disabled />
+            </InputRow>
           </InputWrapper>
-          <button onClick={() => setSwapFromTokenA(!swapFromTokenA)}>
-            {"\u21C5"}
-          </button>
         </InputContainer>
         <button disabled={isSwapDisabled} type="submit">
           Swap
