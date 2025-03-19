@@ -5,6 +5,7 @@ import { DashboardWrapper } from "./dashboard.styles";
 import TokenCard from "../cards/tokenCard/tokenCard";
 import SwapCard from "../cards/swapCard/swapCard";
 import AddLiquidityCard from "../cards/addLiquidityCard/addLiquidityCard";
+import RemoveLiquidityCard from "../cards/removeLiquidityCard/removeLiquidityCard";
 
 export default function Dashboard() {
   const {
@@ -45,6 +46,7 @@ export default function Dashboard() {
         tokenABalance={tokenABalance}
         tokenBBalance={tokenBBalance}
       />
+      <RemoveLiquidityCard lpTokenBalance={0} />
       <SwapCard tokenABalance={tokenABalance} tokenBBalance={tokenBBalance} />
     </DashboardWrapper>
   );
