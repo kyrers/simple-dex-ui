@@ -221,6 +221,64 @@
       "inputs": [
         {
           "internalType": "uint256",
+          "name": "amountA",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amountB",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "deadlineA",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint8",
+          "name": "vA",
+          "type": "uint8"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "rA",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "sA",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "uint256",
+          "name": "deadlineB",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint8",
+          "name": "vB",
+          "type": "uint8"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "rB",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "sB",
+          "type": "bytes32"
+        }
+      ],
+      "name": "addLiquidityWithPermit",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
           "name": "amountIn",
           "type": "uint256"
         },
@@ -318,6 +376,44 @@
         }
       ],
       "name": "swap",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "tokenIn",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amountIn",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "deadline",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint8",
+          "name": "v",
+          "type": "uint8"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "r",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "s",
+          "type": "bytes32"
+        }
+      ],
+      "name": "swapWithPermit",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
