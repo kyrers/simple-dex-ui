@@ -15,7 +15,7 @@ interface UseTokenProps {
   contractABI: typeof TokenAContract.abi;
 }
 
-export interface MintTransactionParams {
+interface MintTransactionParams {
   abi: typeof TokenAContract.abi;
   address: `0x${string}`;
   functionName: string;
