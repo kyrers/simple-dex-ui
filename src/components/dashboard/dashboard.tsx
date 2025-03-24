@@ -1,6 +1,9 @@
-import useToken from "@/hooks/useToken";
+import { useCallback } from "react";
 import TokenAContract from "@/contracts/TokenA.json";
 import TokenBContract from "@/contracts/TokenB.json";
+import { TOKEN_A_ADDRESS, TOKEN_B_ADDRESS } from "@/utils/constants";
+import useToken from "@/hooks/useToken";
+import useDex from "@/hooks/useDex";
 import { DashboardWrapper } from "./dashboard.styles";
 import TokenCard from "../cards/tokenCard/tokenCard";
 import SwapCard from "../cards/swapCard/swapCard";
@@ -12,9 +15,9 @@ export default function Dashboard() {
     balance: tokenABalance,
     isMinting: isMintingTokenA,
     mint: mintTokenA,
+    refetch: refetchTokenA,
   } = useToken({
-    contractAddress: process.env
-      .NEXT_PUBLIC_TOKEN_A_CONTRACT_ADDRESS as `0x${string}`,
+    contractAddress: TOKEN_A_ADDRESS,
     contractABI: TokenAContract.abi,
   });
 
@@ -22,11 +25,23 @@ export default function Dashboard() {
     balance: tokenBBalance,
     isMinting: isMintingTokenB,
     mint: mintTokenB,
+    refetch: refetchTokenB,
   } = useToken({
-    contractAddress: process.env
-      .NEXT_PUBLIC_TOKEN_B_CONTRACT_ADDRESS as `0x${string}`,
+    contractAddress: TOKEN_B_ADDRESS,
     contractABI: TokenBContract.abi,
   });
+
+  const { isAddingLiquidity, addLiquidity } = useDex();
+
+  const refetchBalances = useCallback(async () => {
+    await refetchTokenA();
+    await refetchTokenB();
+  }, [refetchTokenA, refetchTokenB]);
+
+  const handleAddLiquidity = async (amountA: number, amountB: number) => {
+    await addLiquidity(amountA, amountB);
+    await refetchBalances();
+  };
 
   return (
     <DashboardWrapper>
@@ -45,6 +60,8 @@ export default function Dashboard() {
       <AddLiquidityCard
         tokenABalance={tokenABalance}
         tokenBBalance={tokenBBalance}
+        isAddingLiquidity={isAddingLiquidity}
+        addLiquidity={handleAddLiquidity}
       />
       <RemoveLiquidityCard lpTokenBalance={0} />
       <SwapCard tokenABalance={tokenABalance} tokenBBalance={tokenBBalance} />

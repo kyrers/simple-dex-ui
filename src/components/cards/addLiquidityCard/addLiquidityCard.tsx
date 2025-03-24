@@ -5,11 +5,15 @@ import { InputContainer } from "./addLiquidityCard.styles";
 interface Props {
   tokenABalance: number;
   tokenBBalance: number;
+  isAddingLiquidity: boolean;
+  addLiquidity: (amountA: number, amountB: number) => void;
 }
 
 export default function AddLiquidityCard({
   tokenABalance,
   tokenBBalance,
+  isAddingLiquidity,
+  addLiquidity,
 }: Props) {
   const [tokenAAmount, setTokenAAmount] = useState<string>("");
   const [tokenBAmount, setTokenBAmount] = useState<string>("");
@@ -19,18 +23,23 @@ export default function AddLiquidityCard({
     const formattedTokenBAmount = Number(tokenBAmount);
 
     return (
+      isAddingLiquidity ||
       !formattedTokenAAmount ||
       !formattedTokenBAmount ||
       formattedTokenAAmount > tokenABalance ||
       formattedTokenBAmount > tokenBBalance
     );
-  }, [tokenAAmount, tokenBAmount, tokenABalance, tokenBBalance]);
+  }, [
+    tokenAAmount,
+    tokenBAmount,
+    tokenABalance,
+    tokenBBalance,
+    isAddingLiquidity,
+  ]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(
-      `## ADDING LIQUIDITY: ${tokenAAmount} TOKEN_A and ${tokenBAmount} TOKEN_B`
-    );
+    addLiquidity(Number(tokenAAmount), Number(tokenBAmount));
   };
 
   return (
@@ -56,7 +65,7 @@ export default function AddLiquidityCard({
           />
         </InputContainer>
         <button type="submit" disabled={isAddLiquidityDisabled}>
-          Add Liquidity
+          {isAddingLiquidity ? "Adding..." : "Add Liquidity"}
         </button>
       </LiquidityCardStyledForm>
     </BaseCardWrapper>
