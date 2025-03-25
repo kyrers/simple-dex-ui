@@ -1,25 +1,15 @@
-import { useAccount, useReadContract } from "wagmi";
-import {
-  simulateContract,
-  waitForTransactionReceipt,
-  writeContract,
-} from "wagmi/actions";
-import { wagmiConfig } from "@/wagmiConfig";
-import { formatEther, parseEther } from "viem";
-import TokenAContract from "@/contracts/TokenA.json";
 import { useState } from "react";
-
+import { useAccount, useReadContract } from "wagmi";
+import { simulateContract } from "wagmi/actions";
+import { formatEther, parseEther } from "viem";
+import { wagmiConfig } from "@/wagmiConfig";
+import TokenAContract from "@/contracts/TokenA.json";
+import { handleTransaction } from "./utils/shared";
+import { MintTransactionParams } from "./utils/types";
 interface UseTokenProps {
   contractAddress: `0x${string}`;
   //Both TokenA and TokenB contracts have the same ABI, so we can define the type like below
   contractABI: typeof TokenAContract.abi;
-}
-
-interface MintTransactionParams {
-  abi: typeof TokenAContract.abi;
-  address: `0x${string}`;
-  functionName: string;
-  args: [bigint];
 }
 
 const useToken = ({ contractAddress, contractABI }: UseTokenProps) => {
@@ -46,23 +36,13 @@ const useToken = ({ contractAddress, contractABI }: UseTokenProps) => {
 
     try {
       await simulateContract(wagmiConfig, txParams);
-      await handleMint(txParams);
+      await handleTransaction(txParams);
+      await refetch();
+      setIsMinting(false);
     } catch {
       alert("Mint will fail!");
       setIsMinting(false);
       return;
-    }
-  };
-
-  const handleMint = async (txParams: MintTransactionParams) => {
-    try {
-      const txHash = await writeContract(wagmiConfig, txParams);
-      await waitForTransactionReceipt(wagmiConfig, { hash: txHash });
-      await refetch();
-    } catch (error) {
-      console.error("## Error minting:", error);
-    } finally {
-      setIsMinting(false);
     }
   };
 

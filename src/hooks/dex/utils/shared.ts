@@ -1,10 +1,5 @@
 import { wagmiConfig } from "@/wagmiConfig";
-import {
-  signTypedData,
-  waitForTransactionReceipt,
-  writeContract,
-} from "wagmi/actions";
-import { AddLiquidityTransactionParams } from "./types";
+import { signTypedData } from "wagmi/actions";
 import { parseSignature } from "viem";
 
 interface PermitSignatureParams {
@@ -53,14 +48,4 @@ export const getPermitSignature = async ({
   });
 
   return parseSignature(signature);
-};
-
-type HandleTransactionParams = AddLiquidityTransactionParams;
-export const handleTransaction = async (txParams: HandleTransactionParams) => {
-  try {
-    const txHash = await writeContract(wagmiConfig, txParams);
-    await waitForTransactionReceipt(wagmiConfig, { hash: txHash });
-  } catch (error) {
-    console.error("## Error executing transaction:", error);
-  }
 };

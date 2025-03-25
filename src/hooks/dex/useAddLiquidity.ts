@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useAccount } from "wagmi";
-import { getPermitSignature, handleTransaction } from "./utils/shared";
-import { BASE_TX_PARAMS } from "./utils/constants";
 import { parseEther } from "viem";
-import { wagmiConfig } from "@/wagmiConfig";
-import { AddLiquidityTransactionParams } from "./utils/types";
 import { simulateContract, readContract } from "wagmi/actions";
+import { wagmiConfig } from "@/wagmiConfig";
 import TokenAContract from "@/contracts/TokenA.json";
+import { AddLiquidityTransactionParams } from "../utils/types";
+import { getPermitSignature } from "./utils/shared";
+import { handleTransaction } from "../utils/shared";
+import { BASE_TX_PARAMS } from "./utils/constants";
 import {
   SIMPLE_DEX_ADDRESS,
   TOKEN_A_ADDRESS,

@@ -1,11 +1,20 @@
+import TokenAContract from "@/contracts/TokenA.json";
 import SimpleDexContract from "@/contracts/SimpleDex.json";
 
-export interface BaseTransactionParams {
+export interface MintTransactionParams {
+  abi: typeof TokenAContract.abi;
+  address: `0x${string}`;
+  functionName: string;
+  args: [bigint];
+}
+
+export interface BaseDexTransactionParams {
   abi: typeof SimpleDexContract.abi;
   address: `0x${string}`;
 }
 
-export interface AddLiquidityTransactionParams extends BaseTransactionParams {
+export interface AddLiquidityTransactionParams
+  extends BaseDexTransactionParams {
   functionName: "addLiquidityWithPermit";
   args: [
     bigint, //amountA
