@@ -1,15 +1,14 @@
-import TokenAContract from "@/contracts/TokenA.json";
-import SimpleDexContract from "@/contracts/SimpleDex.json";
+import { TOKEN_A_ABI, TOKEN_B_ABI, SIMPLE_DEX_ABI } from "@/utils/constants";
 
 export interface MintTransactionParams {
-  abi: typeof TokenAContract.abi;
+  abi: typeof TOKEN_A_ABI | typeof TOKEN_B_ABI;
   address: `0x${string}`;
   functionName: string;
   args: [bigint];
 }
 
 export interface BaseDexTransactionParams {
-  abi: typeof SimpleDexContract.abi;
+  abi: typeof SIMPLE_DEX_ABI;
   address: `0x${string}`;
 }
 

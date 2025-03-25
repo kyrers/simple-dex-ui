@@ -3,14 +3,15 @@ import { useAccount } from "wagmi";
 import { parseEther } from "viem";
 import { simulateContract, readContract } from "wagmi/actions";
 import { wagmiConfig } from "@/wagmiConfig";
-import TokenAContract from "@/contracts/TokenA.json";
 import { AddLiquidityTransactionParams } from "../utils/types";
 import { getPermitSignature } from "./utils/shared";
 import { handleTransaction } from "../utils/shared";
 import { BASE_TX_PARAMS } from "./utils/constants";
 import {
   SIMPLE_DEX_ADDRESS,
+  TOKEN_A_ABI,
   TOKEN_A_ADDRESS,
+  TOKEN_B_ABI,
   TOKEN_B_ADDRESS,
 } from "@/utils/constants";
 
@@ -26,14 +27,14 @@ const useAddLiquidity = () => {
     try {
       //Get the current nonce for both tokens
       const tokenANonceResult = await readContract(wagmiConfig, {
-        abi: TokenAContract.abi,
+        abi: TOKEN_A_ABI,
         address: TOKEN_A_ADDRESS,
         functionName: "nonces",
         args: [address],
       });
 
       const tokenBNonceResult = await readContract(wagmiConfig, {
-        abi: TokenAContract.abi,
+        abi: TOKEN_B_ABI,
         address: TOKEN_B_ADDRESS,
         functionName: "nonces",
         args: [address],

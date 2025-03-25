@@ -3,13 +3,13 @@ import { useAccount, useReadContract } from "wagmi";
 import { simulateContract } from "wagmi/actions";
 import { formatEther, parseEther } from "viem";
 import { wagmiConfig } from "@/wagmiConfig";
-import TokenAContract from "@/contracts/TokenA.json";
 import { handleTransaction } from "./utils/shared";
 import { MintTransactionParams } from "./utils/types";
+import { TOKEN_A_ABI, TOKEN_B_ABI } from "@/utils/constants";
 interface UseTokenProps {
   contractAddress: `0x${string}`;
-  //Both TokenA and TokenB contracts have the same ABI, so we can define the type like below
-  contractABI: typeof TokenAContract.abi;
+  //Both TokenA and TokenB contracts have the same ABI, but the type is defined like this for future compatibility in case of changes
+  contractABI: typeof TOKEN_A_ABI | typeof TOKEN_B_ABI;
 }
 
 const useToken = ({ contractAddress, contractABI }: UseTokenProps) => {

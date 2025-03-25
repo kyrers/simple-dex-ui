@@ -1,7 +1,10 @@
 import { useCallback } from "react";
-import TokenAContract from "@/contracts/TokenA.json";
-import TokenBContract from "@/contracts/TokenB.json";
-import { TOKEN_A_ADDRESS, TOKEN_B_ADDRESS } from "@/utils/constants";
+import {
+  TOKEN_A_ADDRESS,
+  TOKEN_A_ABI,
+  TOKEN_B_ABI,
+  TOKEN_B_ADDRESS,
+} from "@/utils/constants";
 import useToken from "@/hooks/useToken";
 import useDex from "@/hooks/useDex";
 import { DashboardWrapper } from "./dashboard.styles";
@@ -18,7 +21,7 @@ export default function Dashboard() {
     refetch: refetchTokenA,
   } = useToken({
     contractAddress: TOKEN_A_ADDRESS,
-    contractABI: TokenAContract.abi,
+    contractABI: TOKEN_A_ABI,
   });
 
   const {
@@ -28,7 +31,7 @@ export default function Dashboard() {
     refetch: refetchTokenB,
   } = useToken({
     contractAddress: TOKEN_B_ADDRESS,
-    contractABI: TokenBContract.abi,
+    contractABI: TOKEN_B_ABI,
   });
 
   const { isAddingLiquidity, addLiquidity } = useDex();
