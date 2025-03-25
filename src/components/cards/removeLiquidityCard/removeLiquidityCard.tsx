@@ -3,16 +3,17 @@ import { LiquidityCardStyledForm } from "../cards.styles";
 import { RemoveLiquidityCardWrapper } from "./removeLiquidityCard.styles";
 
 interface Props {
-  lpTokenBalance: number;
+  lpBalance: number;
+  isFetching: boolean;
 }
 
-export default function TokenCard({ lpTokenBalance }: Props) {
+export default function RemoveLiquidityCard({ lpBalance, isFetching }: Props) {
   const [amount, setAmount] = useState<string>("");
 
   const isRemoveLiquidityDisabled = useMemo(() => {
     const formattedAmount = Number(amount);
-    return !formattedAmount || formattedAmount > lpTokenBalance;
-  }, [amount, lpTokenBalance]);
+    return !formattedAmount || formattedAmount > lpBalance;
+  }, [amount, lpBalance]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,7 +23,7 @@ export default function TokenCard({ lpTokenBalance }: Props) {
   return (
     <RemoveLiquidityCardWrapper>
       <h1>Remove Liquidity</h1>
-      <h3>Balance: {lpTokenBalance}</h3>
+      <h3>Balance: {lpBalance}</h3>
       <LiquidityCardStyledForm onSubmit={handleSubmit}>
         <input
           type="number"

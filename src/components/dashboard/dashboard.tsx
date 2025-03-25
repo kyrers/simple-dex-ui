@@ -34,12 +34,19 @@ export default function Dashboard() {
     contractABI: TOKEN_B_ABI,
   });
 
-  const { isAddingLiquidity, addLiquidity } = useDex();
+  const {
+    lpBalance,
+    isFetchingLpBalance,
+    isAddingLiquidity,
+    refetchLpBalance,
+    addLiquidity,
+  } = useDex();
 
   const refetchBalances = useCallback(async () => {
     await refetchTokenA();
     await refetchTokenB();
-  }, [refetchTokenA, refetchTokenB]);
+    await refetchLpBalance();
+  }, [refetchTokenA, refetchTokenB, refetchLpBalance]);
 
   const handleAddLiquidity = async (amountA: number, amountB: number) => {
     await addLiquidity(amountA, amountB);
@@ -66,7 +73,10 @@ export default function Dashboard() {
         isAddingLiquidity={isAddingLiquidity}
         addLiquidity={handleAddLiquidity}
       />
-      <RemoveLiquidityCard lpTokenBalance={0} />
+      <RemoveLiquidityCard
+        lpBalance={lpBalance}
+        isFetching={isFetchingLpBalance}
+      />
       <SwapCard tokenABalance={tokenABalance} tokenBBalance={tokenBBalance} />
     </DashboardWrapper>
   );
