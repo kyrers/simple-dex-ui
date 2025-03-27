@@ -2,7 +2,7 @@ import { mediaQueries } from "@/styles/media";
 import { theme } from "@/styles/theme";
 import styled from "@emotion/styled";
 
-export const DashboardWrapper = styled.div`
+export const DashboardContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;

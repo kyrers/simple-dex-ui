@@ -1,6 +1,9 @@
 import { useMemo, useState } from "react";
-import { BaseCardWrapper, LiquidityCardStyledForm } from "../cards.styles";
-import { InputContainer } from "./addLiquidityCard.styles";
+import {
+  BaseCardContainer,
+  BaseInputContainer,
+  LiquidityCardStyledForm,
+} from "../cards.styles";
 
 interface Props {
   tokenABalance: number;
@@ -43,10 +46,10 @@ export default function AddLiquidityCard({
   };
 
   return (
-    <BaseCardWrapper>
+    <BaseCardContainer>
       <h1>Add Liquidity</h1>
       <LiquidityCardStyledForm onSubmit={handleSubmit}>
-        <InputContainer>
+        <BaseInputContainer>
           <input
             type="number"
             placeholder="Token A amount"
@@ -63,11 +66,11 @@ export default function AddLiquidityCard({
             min={1}
             onChange={(e) => setTokenBAmount(e.target.value)}
           />
-        </InputContainer>
+        </BaseInputContainer>
         <button type="submit" disabled={isAddLiquidityDisabled}>
           {isAddingLiquidity ? "Adding..." : "Add Liquidity"}
         </button>
       </LiquidityCardStyledForm>
-    </BaseCardWrapper>
+    </BaseCardContainer>
   );
 }

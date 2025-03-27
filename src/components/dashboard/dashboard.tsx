@@ -7,7 +7,7 @@ import {
 } from "@/utils/constants";
 import useToken from "@/hooks/useToken";
 import useDex from "@/hooks/useDex";
-import { DashboardWrapper, TabContainer } from "./dashboard.styles";
+import { DashboardContainer, TabContainer } from "./dashboard.styles";
 import TokenCard from "../cards/tokenCard/tokenCard";
 import SwapCard from "../cards/swapCard/swapCard";
 import AddLiquidityCard from "../cards/addLiquidityCard/addLiquidityCard";
@@ -50,6 +50,7 @@ export default function Dashboard() {
   const {
     balance: tokenABalance,
     isMinting: isMintingTokenA,
+    isFetching: isFetchingTokenA,
     mint: mintTokenA,
     refetch: refetchTokenA,
   } = useToken({
@@ -60,6 +61,7 @@ export default function Dashboard() {
   const {
     balance: tokenBBalance,
     isMinting: isMintingTokenB,
+    isFetching: isFetchingTokenB,
     mint: mintTokenB,
     refetch: refetchTokenB,
   } = useToken({
@@ -106,7 +108,7 @@ export default function Dashboard() {
   };
 
   return (
-    <DashboardWrapper>
+    <DashboardContainer>
       <TabContainer>
         {TABS.map((tab) => (
           <button
@@ -125,12 +127,14 @@ export default function Dashboard() {
           <TokenCard
             title="Token A"
             balance={tokenABalance}
+            isFetching={isFetchingTokenA}
             isMinting={isMintingTokenA}
             mint={mintTokenA}
           />
           <TokenCard
             title="Token B"
             balance={tokenBBalance}
+            isFetching={isFetchingTokenB}
             isMinting={isMintingTokenB}
             mint={mintTokenB}
           />
@@ -159,6 +163,6 @@ export default function Dashboard() {
       {activeTab === TabId.SWAP && (
         <SwapCard tokenABalance={tokenABalance} tokenBBalance={tokenBBalance} />
       )}
-    </DashboardWrapper>
+    </DashboardContainer>
   );
 }

@@ -1,8 +1,9 @@
+import styled from "@emotion/styled";
 import { mediaQueries } from "@/styles/media";
 import { theme } from "@/styles/theme";
-import styled from "@emotion/styled";
+import { keyframes } from "@emotion/react";
 
-export const BaseCardWrapper = styled.div`
+export const BaseCardContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${theme.spacing.lg};
@@ -67,6 +68,36 @@ export const BaseStyledForm = styled.form`
   }
 `;
 
+export const BaseInputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${theme.spacing.sm};
+  width: 100%;
+`;
+
 export const LiquidityCardStyledForm = styled(BaseStyledForm)`
   flex-direction: column;
+`;
+
+const spinAnimation = keyframes`
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+`;
+
+export const Spinner = styled.div`
+  width: 16px;
+  height: 16px;
+  border: 2px solid ${theme.colors.primary};
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  animation: ${spinAnimation} 1s linear infinite;
+`;
+
+export const BalanceContainer = styled.div<{ isLoading?: boolean }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: ${theme.spacing.sm};
+  opacity: ${({ isLoading = false }) => (isLoading ? 0.7 : 1)};
+  transition: opacity 0.2s ease;
 `;
