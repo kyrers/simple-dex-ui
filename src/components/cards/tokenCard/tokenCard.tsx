@@ -1,14 +1,26 @@
 import { useMemo, useState } from "react";
-import { BaseCardWrapper, BaseStyledForm } from "../cards.styles";
+import {
+  BalanceContainer,
+  BaseCardContainer,
+  BaseStyledForm,
+  Spinner,
+} from "../cards.styles";
 
 interface Props {
   title: string;
   balance: number;
+  isFetching: boolean;
   isMinting: boolean;
   mint: (amount: number) => void;
 }
 
-export default function TokenCard({ title, balance, isMinting, mint }: Props) {
+export default function TokenCard({
+  title,
+  balance,
+  isFetching,
+  isMinting,
+  mint,
+}: Props) {
   const [amount, setAmount] = useState<string>("");
 
   const isMintDisabled = useMemo(() => {
@@ -22,9 +34,12 @@ export default function TokenCard({ title, balance, isMinting, mint }: Props) {
   };
 
   return (
-    <BaseCardWrapper>
+    <BaseCardContainer>
       <h1>{title}</h1>
-      <h3>Balance: {balance}</h3>
+      <BalanceContainer isLoading={isFetching}>
+        <h3>Balance: {balance}</h3>
+        {isFetching && <Spinner />}
+      </BalanceContainer>
       <BaseStyledForm onSubmit={handleSubmit}>
         <input
           type="number"
@@ -38,6 +53,6 @@ export default function TokenCard({ title, balance, isMinting, mint }: Props) {
           {isMinting ? "Minting..." : "Mint"}
         </button>
       </BaseStyledForm>
-    </BaseCardWrapper>
+    </BaseCardContainer>
   );
 }
