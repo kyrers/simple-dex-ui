@@ -38,10 +38,16 @@ export const BaseStyledForm = styled.form`
   input {
     border: 1px solid transparent;
     border-radius: ${theme.borderRadius};
-    padding: ${theme.spacing.xs};
-    flex: 1;
-    min-width: 0;
+    padding: ${theme.spacing.xs} ${theme.spacing.sm};
+    width: 100%;
     font-size: 1rem;
+    -moz-appearance: textfield;
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
   }
 
   button {
@@ -100,4 +106,29 @@ export const BalanceContainer = styled.div<{ isLoading?: boolean }>`
   gap: ${theme.spacing.sm};
   opacity: ${({ isLoading = false }) => (isLoading ? 0.7 : 1)};
   transition: opacity 0.2s ease;
+`;
+
+export const BaseInputWrapper = styled.div`
+  position: relative;
+  width: 100%;
+
+  input {
+    padding-right: 70px;
+  }
+`;
+
+export const MaxAmountWrapper = styled.span`
+  position: absolute;
+  right: ${theme.spacing.sm};
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: ${theme.colors.primary};
+  opacity: 0.6;
+  font-size: 12px;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 1;
+  }
 `;

@@ -2,7 +2,9 @@ import { useMemo, useState } from "react";
 import {
   BaseCardContainer,
   BaseInputContainer,
+  BaseInputWrapper,
   LiquidityCardStyledForm,
+  MaxAmountWrapper,
 } from "../cards.styles";
 
 interface Props {
@@ -50,22 +52,36 @@ export default function AddLiquidityCard({
       <h1>Add Liquidity</h1>
       <LiquidityCardStyledForm onSubmit={handleSubmit}>
         <BaseInputContainer>
-          <input
-            type="number"
-            placeholder="Token A amount"
-            required
-            value={tokenAAmount}
-            min={1}
-            onChange={(e) => setTokenAAmount(e.target.value)}
-          />
-          <input
-            type="number"
-            placeholder="Token B amount"
-            required
-            value={tokenBAmount}
-            min={1}
-            onChange={(e) => setTokenBAmount(e.target.value)}
-          />
+          <BaseInputWrapper>
+            <input
+              type="number"
+              placeholder="Token A amount"
+              required
+              value={tokenAAmount}
+              min={1}
+              onChange={(e) => setTokenAAmount(e.target.value)}
+            />
+            <MaxAmountWrapper
+              onClick={() => setTokenAAmount(tokenABalance.toString())}
+            >
+              (max {tokenABalance})
+            </MaxAmountWrapper>
+          </BaseInputWrapper>
+          <BaseInputWrapper>
+            <input
+              type="number"
+              placeholder="Token B amount"
+              required
+              value={tokenBAmount}
+              min={1}
+              onChange={(e) => setTokenBAmount(e.target.value)}
+            />
+            <MaxAmountWrapper
+              onClick={() => setTokenBAmount(tokenBBalance.toString())}
+            >
+              (max {tokenBBalance})
+            </MaxAmountWrapper>
+          </BaseInputWrapper>
         </BaseInputContainer>
         <button type="submit" disabled={isAddLiquidityDisabled}>
           {isAddingLiquidity ? "Adding..." : "Add Liquidity"}
