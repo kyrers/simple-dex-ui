@@ -146,6 +146,9 @@ export default function Dashboard() {
         <AddLiquidityCard
           tokenABalance={tokenABalance}
           tokenBBalance={tokenBBalance}
+          reserveA={reserveA}
+          reserveB={reserveB}
+          totalLpTokens={totalLpTokens}
           isAddingLiquidity={isAddingLiquidity}
           addLiquidity={handleAddLiquidity}
         />

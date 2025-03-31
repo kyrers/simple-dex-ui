@@ -10,6 +10,9 @@ import {
 interface Props {
   tokenABalance: number;
   tokenBBalance: number;
+  reserveA: number;
+  reserveB: number;
+  totalLpTokens: number;
   isAddingLiquidity: boolean;
   addLiquidity: (amountA: number, amountB: number) => void;
 }
@@ -19,9 +22,30 @@ export default function AddLiquidityCard({
   tokenBBalance,
   isAddingLiquidity,
   addLiquidity,
+  reserveA,
+  reserveB,
+  totalLpTokens,
 }: Props) {
   const [tokenAAmount, setTokenAAmount] = useState<string>("");
   const [tokenBAmount, setTokenBAmount] = useState<string>("");
+
+  const currentRatio = useMemo(() => {
+    return reserveB / reserveA;
+  }, [reserveA, reserveB]);
+
+  const lpTokensReceived = useMemo(() => {
+    const amountA = Number(tokenAAmount);
+    const amountB = Number(tokenBAmount);
+
+    if (!amountA || !amountB) return 0;
+
+    //First liquidity provider
+    if (totalLpTokens === 0) {
+      return Math.sqrt(amountA * amountB);
+    } else {
+      return (amountA * totalLpTokens) / reserveA;
+    }
+  }, [reserveA, tokenAAmount, tokenBAmount, totalLpTokens]);
 
   const isAddLiquidityDisabled = useMemo(() => {
     const formattedTokenAAmount = Number(tokenAAmount);
@@ -49,7 +73,9 @@ export default function AddLiquidityCard({
 
   return (
     <BaseCardContainer>
-      <h1>Add Liquidity</h1>
+      {totalLpTokens > 0 && (
+        <h3>Current ratio: 1 TokenA = {currentRatio} TokenB</h3>
+      )}
       <LiquidityCardStyledForm onSubmit={handleSubmit}>
         <BaseInputContainer>
           <BaseInputWrapper>
@@ -83,6 +109,14 @@ export default function AddLiquidityCard({
             </MaxAmountWrapper>
           </BaseInputWrapper>
         </BaseInputContainer>
+
+        {Number(tokenAAmount) > 0 && Number(tokenBAmount) > 0 && (
+          <p>
+            You will receive approximately {lpTokensReceived.toFixed(2)} LP
+            tokens
+          </p>
+        )}
+
         <button type="submit" disabled={isAddLiquidityDisabled}>
           {isAddingLiquidity ? "Adding..." : "Add Liquidity"}
         </button>

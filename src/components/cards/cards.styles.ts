@@ -81,6 +81,10 @@ export const BaseInputContainer = styled.div`
 
 export const LiquidityCardStyledForm = styled(BaseStyledForm)`
   flex-direction: column;
+
+  p {
+    font-size: small;
+  }
 `;
 
 const spinAnimation = keyframes`
