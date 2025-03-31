@@ -50,20 +50,23 @@ export default function AddLiquidityCard({
   const isAddLiquidityDisabled = useMemo(() => {
     const formattedTokenAAmount = Number(tokenAAmount);
     const formattedTokenBAmount = Number(tokenBAmount);
+    const ratio = formattedTokenBAmount / formattedTokenAAmount;
 
     return (
       isAddingLiquidity ||
       !formattedTokenAAmount ||
       !formattedTokenBAmount ||
       formattedTokenAAmount > tokenABalance ||
-      formattedTokenBAmount > tokenBBalance
+      formattedTokenBAmount > tokenBBalance ||
+      ratio !== currentRatio
     );
   }, [
     tokenAAmount,
     tokenBAmount,
+    isAddingLiquidity,
     tokenABalance,
     tokenBBalance,
-    isAddingLiquidity,
+    currentRatio,
   ]);
 
   const handleSubmit = (e: React.FormEvent) => {
