@@ -10,6 +10,14 @@ export const DashboardContainer = styled.div`
   gap: ${theme.spacing.xl};
   padding: ${theme.spacing.lg};
 
+  hr {
+    width: 100%;
+    max-width: 400px;
+    border: none;
+    border-top: 1px solid ${theme.colors.border};
+    opacity: 0.5;
+  }
+
   ${mediaQueries.tablet} {
     gap: ${theme.spacing.lg};
     padding: ${theme.spacing.sm};

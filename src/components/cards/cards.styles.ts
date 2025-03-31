@@ -7,8 +7,6 @@ export const BaseCardContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${theme.spacing.lg};
-  border: 1px solid ${theme.colors.border};
-  border-radius: ${theme.borderRadius};
   padding: ${theme.spacing.lg};
   text-align: center;
   width: 100%;

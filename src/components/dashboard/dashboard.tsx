@@ -131,6 +131,7 @@ export default function Dashboard() {
             isMinting={isMintingTokenA}
             mint={mintTokenA}
           />
+          <hr />
           <TokenCard
             title="Token B"
             balance={tokenBBalance}
