@@ -50,15 +50,13 @@ export default function AddLiquidityCard({
   const isAddLiquidityDisabled = useMemo(() => {
     const formattedTokenAAmount = Number(tokenAAmount);
     const formattedTokenBAmount = Number(tokenBAmount);
-    const ratio = formattedTokenBAmount / formattedTokenAAmount;
 
     return (
       isAddingLiquidity ||
       !formattedTokenAAmount ||
       !formattedTokenBAmount ||
       formattedTokenAAmount > tokenABalance ||
-      formattedTokenBAmount > tokenBBalance ||
-      ratio !== currentRatio
+      formattedTokenBAmount > tokenBBalance
     );
   }, [
     tokenAAmount,
@@ -66,8 +64,41 @@ export default function AddLiquidityCard({
     isAddingLiquidity,
     tokenABalance,
     tokenBBalance,
-    currentRatio,
   ]);
+
+  const handleTokenAChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const amount = e.target.value;
+    setTokenAAmount(amount);
+
+    if (amount && totalLpTokens > 0) {
+      const expectedB = Number(amount) * currentRatio;
+      setTokenBAmount(expectedB.toString());
+    }
+  };
+
+  const handleTokenBChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const amount = e.target.value;
+    setTokenBAmount(amount);
+
+    if (amount && totalLpTokens > 0) {
+      const expectedA = Number(amount) / currentRatio;
+      setTokenAAmount(expectedA.toString());
+    }
+  };
+
+  const handleMaxClick = (token: "A" | "B") => {
+    if (token === "A") {
+      setTokenAAmount(tokenABalance.toString());
+      if (totalLpTokens > 0) {
+        setTokenBAmount((tokenABalance * currentRatio).toString());
+      }
+    } else {
+      setTokenBAmount(tokenBBalance.toString());
+      if (totalLpTokens > 0) {
+        setTokenAAmount((tokenBBalance / currentRatio).toString());
+      }
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -76,9 +107,14 @@ export default function AddLiquidityCard({
 
   return (
     <BaseCardContainer>
-      {totalLpTokens > 0 && (
+      {totalLpTokens === 0 ? (
+        <h3>
+          You are the first liquidity provider. You will set the initial ratio.
+        </h3>
+      ) : (
         <h3>Current ratio: 1 TokenA = {currentRatio} TokenB</h3>
       )}
+
       <LiquidityCardStyledForm onSubmit={handleSubmit}>
         <BaseInputContainer>
           <BaseInputWrapper>
@@ -88,11 +124,9 @@ export default function AddLiquidityCard({
               required
               value={tokenAAmount}
               min={1}
-              onChange={(e) => setTokenAAmount(e.target.value)}
+              onChange={handleTokenAChange}
             />
-            <MaxAmountWrapper
-              onClick={() => setTokenAAmount(tokenABalance.toString())}
-            >
+            <MaxAmountWrapper onClick={() => handleMaxClick("A")}>
               (max {tokenABalance})
             </MaxAmountWrapper>
           </BaseInputWrapper>
@@ -103,11 +137,9 @@ export default function AddLiquidityCard({
               required
               value={tokenBAmount}
               min={1}
-              onChange={(e) => setTokenBAmount(e.target.value)}
+              onChange={handleTokenBChange}
             />
-            <MaxAmountWrapper
-              onClick={() => setTokenBAmount(tokenBBalance.toString())}
-            >
+            <MaxAmountWrapper onClick={() => handleMaxClick("B")}>
               (max {tokenBBalance})
             </MaxAmountWrapper>
           </BaseInputWrapper>

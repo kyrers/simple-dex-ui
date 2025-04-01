@@ -128,6 +128,7 @@ export const MaxAmountWrapper = styled.span`
   color: ${theme.colors.primary};
   opacity: 0.6;
   font-size: 12px;
+  font-weight: bold;
   transition: opacity 0.2s ease;
 
   &:hover {
