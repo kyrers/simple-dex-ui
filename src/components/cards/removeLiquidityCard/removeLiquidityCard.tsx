@@ -1,19 +1,46 @@
 import { useMemo, useState } from "react";
-import { LiquidityCardStyledForm } from "../cards.styles";
-import { RemoveLiquidityCardWrapper } from "./removeLiquidityCard.styles";
+import {
+  BalanceContainer,
+  BaseCardContainer,
+  BaseInputWrapper,
+  LiquidityCardStyledForm,
+  MaxAmountWrapper,
+  Spinner,
+} from "../cards.styles";
 
 interface Props {
   lpBalance: number;
-  isFetching: boolean;
+  reserveA: number;
+  reserveB: number;
+  totalLpTokens: number;
+  isFetchingLpBalance: boolean;
 }
 
-export default function RemoveLiquidityCard({ lpBalance, isFetching }: Props) {
+export default function RemoveLiquidityCard({
+  lpBalance,
+  reserveA,
+  reserveB,
+  totalLpTokens,
+  isFetchingLpBalance,
+}: Props) {
   const [amount, setAmount] = useState<string>("");
+
+  const { amountReceivedA, amountReceivedB } = useMemo(() => {
+    const lpTokensToBurn = Number(amount);
+    if (!lpTokensToBurn) return { amountReceivedA: 0, amountReceivedB: 0 };
+
+    const amountReceivedA = (lpTokensToBurn * reserveA) / totalLpTokens;
+    const amountReceivedB = (lpTokensToBurn * reserveB) / totalLpTokens;
+
+    return { amountReceivedA, amountReceivedB };
+  }, [amount, reserveA, reserveB, totalLpTokens]);
 
   const isRemoveLiquidityDisabled = useMemo(() => {
     const formattedAmount = Number(amount);
-    return !formattedAmount || formattedAmount > lpBalance;
-  }, [amount, lpBalance]);
+    return (
+      !formattedAmount || formattedAmount > lpBalance || isFetchingLpBalance
+    );
+  }, [amount, lpBalance, isFetchingLpBalance]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,22 +48,38 @@ export default function RemoveLiquidityCard({ lpBalance, isFetching }: Props) {
   };
 
   return (
-    <RemoveLiquidityCardWrapper>
-      <h1>Remove Liquidity</h1>
-      <h3>Balance: {lpBalance}</h3>
+    <BaseCardContainer>
+      <BalanceContainer isLoading={isFetchingLpBalance}>
+        <h3>LP Balance: {lpBalance.toFixed(2)}</h3>
+        {isFetchingLpBalance && <Spinner />}
+      </BalanceContainer>
+
       <LiquidityCardStyledForm onSubmit={handleSubmit}>
-        <input
-          type="number"
-          placeholder="LP tokens to remove"
-          required
-          value={amount}
-          min={1}
-          onChange={(e) => setAmount(e.target.value)}
-        />
+        <BaseInputWrapper>
+          <input
+            type="number"
+            placeholder="LP tokens to remove"
+            required
+            value={amount}
+            min={1}
+            onChange={(e) => setAmount(e.target.value)}
+          />
+          <MaxAmountWrapper onClick={() => setAmount(lpBalance.toString())}>
+            (max {lpBalance.toFixed(2)})
+          </MaxAmountWrapper>
+        </BaseInputWrapper>
+
+        {!isRemoveLiquidityDisabled && (
+          <p>
+            You will receive approximately {amountReceivedA.toFixed(2)} TokenA
+            and {amountReceivedB.toFixed(2)} TokenB.
+          </p>
+        )}
+
         <button disabled={isRemoveLiquidityDisabled} type="submit">
           Remove Liquidity
         </button>
       </LiquidityCardStyledForm>
-    </RemoveLiquidityCardWrapper>
+    </BaseCardContainer>
   );
 }
