@@ -61,7 +61,7 @@ export default function RemoveLiquidityCard({
             placeholder="LP tokens to remove"
             required
             value={amount}
-            min={1}
+            step="any"
             onChange={(e) => setAmount(e.target.value)}
           />
           <MaxAmountWrapper onClick={() => setAmount(lpBalance.toString())}>

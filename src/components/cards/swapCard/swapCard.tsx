@@ -44,7 +44,7 @@ export default function SwapCard({ tokenABalance, tokenBBalance }: Props) {
               placeholder="Amount to swap"
               required
               value={amount}
-              min={1}
+              step="any"
               onChange={(e) => setAmount(e.target.value)}
             />
           </InputRow>

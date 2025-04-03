@@ -37,7 +37,7 @@ export default function TokenCard({
     <BaseCardContainer>
       <h1>{title}</h1>
       <BalanceContainer isLoading={isFetching}>
-        <h3>Balance: {balance}</h3>
+        <h3>Balance: {balance.toFixed(2)}</h3>
         {isFetching && <Spinner />}
       </BalanceContainer>
       <BaseStyledForm onSubmit={handleSubmit}>
@@ -46,7 +46,7 @@ export default function TokenCard({
           placeholder="Amount of tokens to mint"
           required
           value={amount}
-          min={1}
+          step="any"
           onChange={(e) => setAmount(e.target.value)}
         />
         <button disabled={isMintDisabled} type="submit">

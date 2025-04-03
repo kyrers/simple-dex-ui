@@ -112,7 +112,7 @@ export default function AddLiquidityCard({
           You are the first liquidity provider. You will set the initial ratio.
         </h3>
       ) : (
-        <h3>Current ratio: 1 TokenA = {currentRatio} TokenB</h3>
+        <h3>Current ratio: 1 TokenA = {currentRatio.toFixed(2)} TokenB</h3>
       )}
 
       <LiquidityCardStyledForm onSubmit={handleSubmit}>
@@ -123,7 +123,7 @@ export default function AddLiquidityCard({
               placeholder="Token A amount"
               required
               value={tokenAAmount}
-              min={1}
+              step="any"
               onChange={handleTokenAChange}
             />
             <MaxAmountWrapper onClick={() => handleMaxClick("A")}>
@@ -136,7 +136,7 @@ export default function AddLiquidityCard({
               placeholder="Token B amount"
               required
               value={tokenBAmount}
-              min={1}
+              step="any"
               onChange={handleTokenBChange}
             />
             <MaxAmountWrapper onClick={() => handleMaxClick("B")}>
