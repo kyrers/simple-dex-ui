@@ -5,41 +5,32 @@ import useRemoveLiquidity from "./dex/useRemoveLiquidity";
 import { formatEther } from "viem";
 
 const useDex = () => {
-  const {
-    data: reserveA,
-    refetch: refetchReserveA,
-    isFetching: isFetchingReserveA,
-  } = useReadContract({
+  const { data: reserveA, refetch: refetchReserveA } = useReadContract({
     abi: SIMPLE_DEX_ABI,
     address: SIMPLE_DEX_ADDRESS,
     functionName: "reserveA",
   });
 
-  const {
-    data: reserveB,
-    refetch: refetchReserveB,
-    isFetching: isFetchingReserveB,
-  } = useReadContract({
+  const { data: reserveB, refetch: refetchReserveB } = useReadContract({
     abi: SIMPLE_DEX_ABI,
     address: SIMPLE_DEX_ADDRESS,
     functionName: "reserveB",
   });
 
-  const {
-    data: totalLpTokens,
-    refetch: refetchTotalLpTokens,
-    isFetching: isFetchingTotalLpTokens,
-  } = useReadContract({
-    abi: SIMPLE_DEX_ABI,
-    address: SIMPLE_DEX_ADDRESS,
-    functionName: "totalLpTokens",
-  });
+  const { data: totalLpTokens, refetch: refetchTotalLpTokens } =
+    useReadContract({
+      abi: SIMPLE_DEX_ABI,
+      address: SIMPLE_DEX_ADDRESS,
+      functionName: "totalLpTokens",
+    });
 
   const { isAddingLiquidity, addLiquidity } = useAddLiquidity();
   const {
     lpBalance,
-    refetch: refetchLpBalance,
     isFetching: isFetchingLpBalance,
+    isRemovingLiquidity,
+    removeLiquidity,
+    refetch: refetchLpBalance,
   } = useRemoveLiquidity();
 
   return {
@@ -48,15 +39,14 @@ const useDex = () => {
     totalLpTokens: Number(formatEther((totalLpTokens as bigint) ?? 0)),
     lpBalance,
     isFetchingLpBalance,
-    isFetchingReserveA,
-    isFetchingReserveB,
-    isFetchingTotalLpTokens,
     isAddingLiquidity,
+    isRemovingLiquidity,
     refetchReserveA,
     refetchReserveB,
     refetchTotalLpTokens,
     refetchLpBalance,
     addLiquidity,
+    removeLiquidity,
   };
 };
 

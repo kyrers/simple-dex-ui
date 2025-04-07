@@ -14,6 +14,8 @@ interface Props {
   reserveB: number;
   totalLpTokens: number;
   isFetchingLpBalance: boolean;
+  isRemovingLiquidity: boolean;
+  removeLiquidity: (amount: number) => void;
 }
 
 export default function RemoveLiquidityCard({
@@ -22,6 +24,8 @@ export default function RemoveLiquidityCard({
   reserveB,
   totalLpTokens,
   isFetchingLpBalance,
+  isRemovingLiquidity,
+  removeLiquidity,
 }: Props) {
   const [amount, setAmount] = useState<string>("");
 
@@ -38,13 +42,16 @@ export default function RemoveLiquidityCard({
   const isRemoveLiquidityDisabled = useMemo(() => {
     const formattedAmount = Number(amount);
     return (
-      !formattedAmount || formattedAmount > lpBalance || isFetchingLpBalance
+      isRemovingLiquidity ||
+      !formattedAmount ||
+      formattedAmount > lpBalance ||
+      isFetchingLpBalance
     );
-  }, [amount, lpBalance, isFetchingLpBalance]);
+  }, [amount, lpBalance, isFetchingLpBalance, isRemovingLiquidity]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(`## REMOVING LIQUIDITY: ${amount} LP TOKENS`);
+    removeLiquidity(Number(amount));
   };
 
   return (

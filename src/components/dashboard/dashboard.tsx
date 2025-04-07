@@ -75,15 +75,14 @@ export default function Dashboard() {
     reserveB,
     totalLpTokens,
     isFetchingLpBalance,
-    isFetchingReserveA,
-    isFetchingReserveB,
-    isFetchingTotalLpTokens,
     isAddingLiquidity,
+    isRemovingLiquidity,
     refetchLpBalance,
     refetchReserveA,
     refetchReserveB,
     refetchTotalLpTokens,
     addLiquidity,
+    removeLiquidity,
   } = useDex();
 
   const refetchBalances = useCallback(async () => {
@@ -104,6 +103,11 @@ export default function Dashboard() {
 
   const handleAddLiquidity = async (amountA: number, amountB: number) => {
     await addLiquidity(amountA, amountB);
+    await refetchBalances();
+  };
+
+  const handleRemoveLiquidity = async (amount: number) => {
+    await removeLiquidity(amount);
     await refetchBalances();
   };
 
@@ -161,6 +165,8 @@ export default function Dashboard() {
           reserveB={reserveB}
           totalLpTokens={totalLpTokens}
           isFetchingLpBalance={isFetchingLpBalance}
+          isRemovingLiquidity={isRemovingLiquidity}
+          removeLiquidity={handleRemoveLiquidity}
         />
       )}
 
