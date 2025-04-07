@@ -1,10 +1,15 @@
 import { waitForTransactionReceipt, writeContract } from "wagmi/actions";
 import { wagmiConfig } from "@/wagmiConfig";
-import { AddLiquidityTransactionParams, MintTransactionParams } from "./types";
+import {
+  AddLiquidityTransactionParams,
+  MintTransactionParams,
+  RemoveLiquidityTransactionParams,
+} from "./types";
 
 type HandleTransactionParams =
   | MintTransactionParams
-  | AddLiquidityTransactionParams;
+  | AddLiquidityTransactionParams
+  | RemoveLiquidityTransactionParams;
 
 export const handleTransaction = async (txParams: HandleTransactionParams) => {
   try {

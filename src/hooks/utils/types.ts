@@ -28,3 +28,9 @@ export interface AddLiquidityTransactionParams
     `0x${string}` //s signature B
   ];
 }
+
+export interface RemoveLiquidityTransactionParams
+  extends BaseDexTransactionParams {
+  functionName: "removeLiquidity";
+  args: [bigint];
+}
