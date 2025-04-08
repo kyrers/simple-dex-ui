@@ -25,10 +25,11 @@ export default function SwapCard({
     const formattedAmount = Number(amount);
 
     return (
+      !currentRatio ||
       !formattedAmount ||
       formattedAmount > (swapFromTokenA ? tokenABalance : tokenBBalance)
     );
-  }, [amount, swapFromTokenA, tokenABalance, tokenBBalance]);
+  }, [amount, currentRatio, swapFromTokenA, tokenABalance, tokenBBalance]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,7 +40,12 @@ export default function SwapCard({
 
   return (
     <BaseCardContainer>
-      <h1>Swap Tokens</h1>
+      {currentRatio ? (
+        <h3>Current ratio: 1 TokenA = {currentRatio.toFixed(2)} TokenB</h3>
+      ) : (
+        <h3>No liquidity available</h3>
+      )}
+
       <SwapStyledForm onSubmit={handleSubmit}>
         <StyledInputContainer>
           <InputRow>
@@ -64,6 +70,7 @@ export default function SwapCard({
             <input type="number" placeholder="Amount received" disabled />
           </InputRow>
         </StyledInputContainer>
+
         <button disabled={isSwapDisabled} type="submit">
           Swap
         </button>
