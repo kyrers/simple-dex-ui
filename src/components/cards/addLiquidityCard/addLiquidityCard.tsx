@@ -11,7 +11,7 @@ interface Props {
   tokenABalance: number;
   tokenBBalance: number;
   reserveA: number;
-  reserveB: number;
+  currentRatio: number;
   totalLpTokens: number;
   isAddingLiquidity: boolean;
   addLiquidity: (amountA: number, amountB: number) => void;
@@ -23,15 +23,11 @@ export default function AddLiquidityCard({
   isAddingLiquidity,
   addLiquidity,
   reserveA,
-  reserveB,
   totalLpTokens,
+  currentRatio,
 }: Props) {
   const [tokenAAmount, setTokenAAmount] = useState<string>("");
   const [tokenBAmount, setTokenBAmount] = useState<string>("");
-
-  const currentRatio = useMemo(() => {
-    return reserveB / reserveA;
-  }, [reserveA, reserveB]);
 
   const lpTokensReceived = useMemo(() => {
     const amountA = Number(tokenAAmount);

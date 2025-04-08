@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import {
   TOKEN_A_ADDRESS,
   TOKEN_A_ABI,
@@ -85,6 +85,10 @@ export default function Dashboard() {
     removeLiquidity,
   } = useDex();
 
+  const currentRatio = useMemo(() => {
+    return reserveB / reserveA;
+  }, [reserveA, reserveB]);
+
   const refetchBalances = useCallback(async () => {
     await refetchTokenA();
     await refetchTokenB();
@@ -151,7 +155,7 @@ export default function Dashboard() {
           tokenABalance={tokenABalance}
           tokenBBalance={tokenBBalance}
           reserveA={reserveA}
-          reserveB={reserveB}
+          currentRatio={currentRatio}
           totalLpTokens={totalLpTokens}
           isAddingLiquidity={isAddingLiquidity}
           addLiquidity={handleAddLiquidity}
@@ -171,7 +175,11 @@ export default function Dashboard() {
       )}
 
       {activeTab === TabId.SWAP && (
-        <SwapCard tokenABalance={tokenABalance} tokenBBalance={tokenBBalance} />
+        <SwapCard
+          tokenABalance={tokenABalance}
+          tokenBBalance={tokenBBalance}
+          currentRatio={currentRatio}
+        />
       )}
     </DashboardContainer>
   );

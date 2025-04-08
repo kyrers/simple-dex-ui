@@ -10,9 +10,14 @@ import { BaseCardContainer } from "../cards.styles";
 interface Props {
   tokenABalance: number;
   tokenBBalance: number;
+  currentRatio: number;
 }
 
-export default function SwapCard({ tokenABalance, tokenBBalance }: Props) {
+export default function SwapCard({
+  tokenABalance,
+  tokenBBalance,
+  currentRatio,
+}: Props) {
   const [amount, setAmount] = useState<string>("");
   const [swapFromTokenA, setSwapFromTokenA] = useState<boolean>(true);
 
